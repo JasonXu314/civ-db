@@ -2,11 +2,13 @@
 
 # dependencies
 /node_modules
+/yarn.lock
 /.pnp
 .pnp.js
 
 # testing
-/coverage
+/tests/**/__snapshots__
+/tests/**/__mocks__
 
 # next.js
 /.next/
