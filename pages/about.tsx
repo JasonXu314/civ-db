@@ -1,4 +1,4 @@
-import Layout from '$/Layout';
+import Layout from '$/Layout/Layout';
 import { NextPage } from 'next';
 import Link from 'next/link';
 

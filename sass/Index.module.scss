@@ -1,0 +1,36 @@
+.main {
+	// background: #eed6bc url('https://vignette.wikia.nocookie.net/civilization/images/5/50/Wiki-background/revision/latest?cb=20191019192046') top center repeat;
+
+	.title {
+		text-align: center;
+	}
+
+	.cover {
+		display: block;
+		margin: auto;
+	}
+
+	.header {
+		margin: 0.5em;
+	}
+
+	.links {
+		list-style: none;
+		padding: 0 1em;
+		margin: 0.5em;
+
+		.item {
+			.link {
+				color: black;
+				text-decoration: underline solid black;
+				display: block;
+				padding: 0.25em 0.5em;
+				width: fit-content;
+
+				&:hover {
+					background-color: #cfcfcf;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,6 @@
+{
+	"exec": "next",
+	"watch": ["."],
+	"ignore": ["tests/*"],
+	"ext": "json"
+}

@@ -2,7 +2,7 @@
 	"name": "civ-db",
 	"version": "1.0.0",
 	"scripts": {
-		"dev": "next",
+		"dev": "nodemon",
 		"build": "next build",
 		"prebuild": "yarn up; yarn test",
 		"start": "next start",
@@ -31,6 +31,7 @@
 		"eslint-plugin-react": "^7.20.2",
 		"eslint-plugin-react-hooks": "^4.0.4",
 		"jest": "^26.1.0",
+		"nodemon": "^2.0.4",
 		"typescript": "3.7.3"
 	},
 	"license": "ISC"

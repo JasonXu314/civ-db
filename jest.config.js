@@ -10,6 +10,7 @@ module.exports = {
 		'\\.(css|less|sass|scss)$': 'identity-obj-proxy',
 		'\\.(gif|ttf|eot|svg|png)$': '<rootDir>/test/__mocks__/fileMock.js',
 		'\\$/(.*)': '<rootDir>/components/$1',
+		'&/(.*)': '<rootDir>/sass/$1',
 		'@/(.*)': '<rootDir>/utils/$1'
 	}
 };
