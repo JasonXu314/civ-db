@@ -1,0 +1,43 @@
+.main {
+	display: grid;
+	grid-template: 'header' 'content' 'footer';
+
+	.header {
+		grid-area: header;
+		height: 38px;
+		background: #3674d1;
+
+		.nav {
+			height: 100%;
+
+			.links {
+				height: 100%;
+				list-style: none;
+				display: flex;
+				flex-direction: row;
+				margin: 0;
+				padding: 0;
+
+				.link {
+					&:hover,
+					&.current {
+						background: #3461a5;
+					}
+
+					.text {
+						height: 100%;
+						padding: 8px 0.5em 0 0.5em;
+						display: block;
+						color: white;
+						text-decoration: none;
+						text-transform: capitalize;
+					}
+				}
+			}
+		}
+	}
+
+	.footer {
+		grid-area: footer;
+	}
+}
