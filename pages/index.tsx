@@ -11,14 +11,17 @@ const Index: NextPage = () => (
 			<h3 className={styles.header}>Explore:</h3>
 			<ul className={styles.links}>
 				<li className={styles.item}>
-					<Link href="/civs" prefetch>
+					<Link href="/civs">
 						<a className={styles.link}>Civs</a>
 					</Link>
-					<Link href="/units" prefetch>
+					<Link href="/units">
 						<a className={styles.link}>Units</a>
 					</Link>
-					<Link href="/leaders" prefetch>
+					<Link href="/leaders">
 						<a className={styles.link}>Leaders</a>
+					</Link>
+					<Link href="/unique-units">
+						<a className={styles.link}>Unique Units</a>
 					</Link>
 				</li>
 			</ul>
