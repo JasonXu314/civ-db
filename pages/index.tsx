@@ -10,20 +10,13 @@ const Index: NextPage = () => (
 			<img className={styles.cover} src="maori.jpg"></img>
 			<h3 className={styles.header}>Explore:</h3>
 			<ul className={styles.links}>
-				<li className={styles.item}>
-					<Link href="/civs">
-						<a className={styles.link}>Civs</a>
-					</Link>
-					<Link href="/units">
-						<a className={styles.link}>Units</a>
-					</Link>
-					<Link href="/leaders">
-						<a className={styles.link}>Leaders</a>
-					</Link>
-					<Link href="/unique-units">
-						<a className={styles.link}>Unique Units</a>
-					</Link>
-				</li>
+				{['civs', 'units', 'leaders', 'unique-units'].map((route, i) => (
+					<li className={styles.item} key={i}>
+						<Link href={`/${route}`}>
+							<a className={styles.link}>{route}</a>
+						</Link>
+					</li>
+				))}
 			</ul>
 		</div>
 	</Layout>

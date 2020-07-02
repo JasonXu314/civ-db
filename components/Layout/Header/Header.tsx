@@ -4,7 +4,6 @@ import styles from '../Layout.module.scss';
 
 const Header: React.FC = () => {
 	const router = useRouter();
-	console.log(router.pathname);
 
 	return (
 		<header className={styles.header}>
