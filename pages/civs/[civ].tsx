@@ -1,22 +1,22 @@
 import Layout from '$/Layout/Layout';
 import styles from '&/CivsCiv.module.scss';
 import axios from 'axios';
-import { MongoClient } from 'mongodb';
+import { MongoClient, WithId } from 'mongodb';
 import { GetServerSideProps, NextPage } from 'next';
 import DefaultErrorPage from 'next/error';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { fetcherFn } from 'swr/dist/types';
-import { Civ, WithId, WithObjectId } from '/types';
+import { Civ } from '/types';
 
-const fetcher: fetcherFn<WithId<Civ>> = async (url) => {
-	return (await axios.get<WithId<Civ>>(url)).data;
+const fetcher: fetcherFn<Civ> = async (url) => {
+	return (await axios.get<Civ>(url)).data;
 };
 
 type IndexInitialProps = SuccessInitialProps | ErroredInitialProps;
 
 interface SuccessInitialProps {
-	initialCiv: WithId<Civ>;
+	initialCiv: Civ;
 	error: false;
 }
 
@@ -87,7 +87,7 @@ export const getServerSideProps: GetServerSideProps<IndexInitialProps> = async (
 
 	const queryCiv = params!.civ as string;
 
-	const foundCiv = (await mongoClient.db('civ-db').collection<WithObjectId<Civ>>('civs').find().toArray()).find(
+	const foundCiv = (await mongoClient.db('civ-db').collection<WithId<Civ>>('civs').find().toArray()).find(
 		(civ) => civ.name.toLowerCase() === queryCiv.toLowerCase() || civ.name.toLowerCase().includes(queryCiv.toLowerCase())
 	);
 
@@ -100,6 +100,8 @@ export const getServerSideProps: GetServerSideProps<IndexInitialProps> = async (
 		};
 	}
 
+	delete foundCiv._id;
+
 	if (queryCiv !== foundCiv.name) {
 		res.writeHead(301, {
 			Location: `/civs/${foundCiv.name}`
@@ -109,10 +111,7 @@ export const getServerSideProps: GetServerSideProps<IndexInitialProps> = async (
 	mongoClient.close();
 	return {
 		props: {
-			initialCiv: {
-				...foundCiv,
-				_id: foundCiv._id.toHexString()
-			},
+			initialCiv: foundCiv,
 			error: false
 		}
 	};

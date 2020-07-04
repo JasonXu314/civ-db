@@ -4,17 +4,17 @@ import styles from '&/CivsIndex.module.scss';
 import axios from 'axios';
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { Civ, WithId } from '/types';
+import { Civ } from '/types';
 
 const CivsIndex: NextPage = () => {
-	const [civs, setCivs] = useState<WithId<Civ>[] | null>(null);
+	const [civs, setCivs] = useState<Civ[] | null>(null);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
 		axios
-			.get<WithId<Civ>[]>('/api/civs')
+			.get<Civ[]>('/api/civs')
 			.then((res) => setCivs(res.data))
-			.catch((err) => setError(err));
+			.catch((err) => setError(err.toString()));
 	}, []);
 
 	return (

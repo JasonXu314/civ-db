@@ -1,15 +1,7 @@
-import { ObjectId } from 'mongodb';
-
 export type Yield = 'Food' | 'Production' | 'Gold' | 'Science' | 'Faith' | 'Culture';
-export type WithId<T> = T & { _id: string };
-export type WithObjectId<T> = T & { _id: ObjectId };
-
-export interface User {
-	id: number;
-	name: string;
-}
 
 export interface Leader {
+	id: string;
 	name: string;
 	portrait: string;
 	abilityName: string;
@@ -17,6 +9,7 @@ export interface Leader {
 }
 
 export interface Unit {
+	id: string;
 	name: string;
 	strength: number;
 	movement: number;
@@ -28,6 +21,7 @@ export interface UniqueUnit extends Unit {
 }
 
 export interface District {
+	id: string;
 	name: string;
 	yield: Yield;
 	buildings: Building[];
@@ -39,6 +33,7 @@ export interface UniqueDistrict extends District {
 }
 
 export interface Building {
+	id: string;
 	name: string;
 	yield: Partial<Record<Yield, { default: number; powered?: number }>>;
 	district: string;
@@ -50,6 +45,7 @@ export interface UniqueBuilding extends Building {
 }
 
 export interface Improvement {
+	id: string;
 	name: string;
 	yields: Record<Yield, number>;
 	restrictions: string[];
@@ -69,4 +65,5 @@ export interface Civ {
 	building?: UniqueBuilding;
 	district?: UniqueDistrict;
 	improvement?: UniqueImprovement;
+	id: string;
 }

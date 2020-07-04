@@ -50,7 +50,8 @@ export const america = {
 			'After Modern Era: +100% [ICON_TOURISM] Tourism pressure from this city towards other civilizations'
 		],
 		replaces: 'Broadcast Center'
-	}
+	},
+	id: '1b636890-95a1-4c5e-a760-e44223374fc8'
 };
 
 export const arabia = {
@@ -91,5 +92,6 @@ export const arabia = {
 			'Provides Faith Faith equal to the adjacency bonus of the [ICON_CAMPUS] Campus'
 		],
 		replaces: 'University'
-	}
+	},
+	id: 'a7753a07-2e8d-4c6d-ad31-6f7345b4b70c'
 };

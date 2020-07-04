@@ -1,6 +1,6 @@
 import { MongoClient } from 'mongodb';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Civ, WithObjectId } from '/types';
+import { Civ } from '/types';
 
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
 	const mongoClient = await MongoClient.connect(process.env.MONGODB_URL!, { useUnifiedTopology: true });
@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
 	try {
 		const queryCiv = req.query.civ as string;
 
-		const foundCiv = (await mongoClient.db('civ-db').collection<WithObjectId<Civ>>('civs').find().toArray()).find(
+		const foundCiv = (await mongoClient.db('civ-db').collection<Civ>('civs').find().toArray()).find(
 			(civ) => civ.name === queryCiv || civ.name.includes(queryCiv)
 		);
 
