@@ -1,10 +1,23 @@
-import { render } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+import { cleanup, render } from '@testing-library/react';
 import Index from '../../pages/index';
 
-describe('Home Page', () => {
-	it('matches snapshot', () => {
-		const { asFragment } = render(<Index />);
+jest.mock('next/router', () => ({
+	useRouter: () => ({ pathname: '/' })
+}));
 
-		expect(asFragment()).toMatchSnapshot();
+afterEach(cleanup);
+
+describe('Home Page', () => {
+	it('renders without crashing', () => {
+		const { container } = render(<Index />);
+
+		expect(container).toBeInTheDocument();
+	});
+
+	it('matches snapshot', () => {
+		const { container } = render(<Index />);
+
+		expect(container).toMatchSnapshot();
 	});
 });

@@ -9,10 +9,10 @@ const Header: React.FC = () => {
 		<header className={styles.header}>
 			<nav className={styles.nav}>
 				<ul className={styles.links}>
-					{['', 'about', 'civs', 'units', 'leaders'].map((route, i) => (
+					{['', 'about', 'civs', 'leaders', 'units', 'unique-units'].map((route, i) => (
 						<li className={(`/${route}` === router.pathname ? [styles.link, styles.current] : [styles.link]).join(' ')} key={i}>
 							<Link href={`/${route}`}>
-								<a className={styles.text}>{route === '' ? 'home' : route}</a>
+								<a className={styles.text}>{route === '' ? 'home' : route.replace('-', ' ')}</a>
 							</Link>
 						</li>
 					))}

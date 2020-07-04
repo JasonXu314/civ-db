@@ -1,22 +1,19 @@
-import axios from 'axios';
 import Link from 'next/link';
-import useSWR from 'swr';
-import { fetcherFn } from 'swr/dist/types';
+import styles from './CivList.module.scss';
 import { Civ, WithId } from '/types';
 
-const fetcher: fetcherFn<WithId<Civ>[]> = async (url) => {
-	return (await axios.get<WithId<Civ>[]>(url)).data;
-};
+interface Props {
+	civs: WithId<Civ>[];
+}
 
-const CivList: React.FC = () => {
-	const { data: civs } = useSWR('/api/civs', fetcher, { suspense: true });
+const CivList: React.FC<Props> = ({ civs }) => {
 	return (
-		<ul>
-			{civs?.map((civ) => (
-				<li key={civ._id}>
+		<ul className={styles.main}>
+			{civs.map((civ) => (
+				<li key={civ._id} className={styles.civ}>
 					<Link href="/civs/[civ]" as={`/civs/${civ.name}`}>
-						<a>
-							<h4>{civ.name}</h4>
+						<a className={styles.link}>
+							<p className={styles.text}>{civ.name}</p>
 						</a>
 					</Link>
 				</li>

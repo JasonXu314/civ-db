@@ -1,30 +1,36 @@
 import CivList from '$/CivList/CivList';
-import ErrorBoundary from '$/ErrorBoundary/ErrorBoundary';
 import Layout from '$/Layout/Layout';
 import styles from '&/CivsIndex.module.scss';
+import axios from 'axios';
 import { NextPage } from 'next';
-import { Suspense } from 'react';
+import { useEffect, useState } from 'react';
+import { Civ, WithId } from '/types';
 
-const Index: NextPage = () => {
-	return typeof window === 'undefined' ? (
+const CivsIndex: NextPage = () => {
+	const [civs, setCivs] = useState<WithId<Civ>[] | null>(null);
+	const [error, setError] = useState<string | null>(null);
+
+	useEffect(() => {
+		axios
+			.get<WithId<Civ>[]>('/api/civs')
+			.then((res) => setCivs(res.data))
+			.catch((err) => setError(err));
+	}, []);
+
+	return (
 		<Layout title="Civ DB | Civs">
 			<div className={styles.main}>
-				<h1>Civs</h1>
-				<div>Loading Civs...</div>
-			</div>
-		</Layout>
-	) : (
-		<Layout title="Civ DB | Civs">
-			<div className={styles.main}>
-				<h1>Civs</h1>
-				<ErrorBoundary fallback={<div>Error Loading Civs...</div>}>
-					<Suspense fallback={<div>Loading Civs...</div>}>
-						<CivList />
-					</Suspense>
-				</ErrorBoundary>
+				<h1 className={styles.heading}>Civilizations</h1>
+				{civs ? (
+					<CivList civs={civs} />
+				) : error ? (
+					<div className={styles.error}>Error Loading Civs...</div>
+				) : (
+					<div className={styles.loading}>Loading Civs...</div>
+				)}
 			</div>
 		</Layout>
 	);
 };
 
-export default Index;
+export default CivsIndex;

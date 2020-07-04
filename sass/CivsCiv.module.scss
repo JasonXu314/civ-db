@@ -1,0 +1,35 @@
+.main {
+	padding: 1em;
+
+	.civ {
+		.row {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+
+			img {
+				max-width: 400px;
+				max-height: 400px;
+				margin: auto;
+				border-radius: 50%;
+			}
+		}
+
+		.about {
+			padding: 0.5em 1em;
+
+			.units {
+				list-style: none;
+
+				.unit {
+					.specials {
+						list-style: none;
+					}
+				}
+			}
+		}
+	}
+
+	.error {
+		color: red;
+	}
+}

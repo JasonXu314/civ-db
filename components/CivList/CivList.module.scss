@@ -1,0 +1,23 @@
+.main {
+	padding-left: 1em;
+	margin-bottom: 0.25em;
+	list-style: none;
+
+	.civ {
+		width: fit-content;
+		padding: 0.25em;
+
+		&:hover {
+			background: #cfcfcf;
+		}
+
+		.link {
+			text-decoration: none;
+			color: black;
+		}
+	}
+
+	.error {
+		color: red;
+	}
+}

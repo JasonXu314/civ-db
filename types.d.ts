@@ -40,7 +40,7 @@ export interface UniqueDistrict extends District {
 
 export interface Building {
 	name: string;
-	yield: Record<Yield, { default: number; powered?: number }>;
+	yield: Partial<Record<Yield, { default: number; powered?: number }>>;
 	district: string;
 }
 

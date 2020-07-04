@@ -13,7 +13,7 @@ const Index: NextPage = () => (
 				{['civs', 'units', 'leaders', 'unique-units'].map((route, i) => (
 					<li className={styles.item} key={i}>
 						<Link href={`/${route}`}>
-							<a className={styles.link}>{route}</a>
+							<a className={styles.link}>{route.replace('-', ' ')}</a>
 						</Link>
 					</li>
 				))}
