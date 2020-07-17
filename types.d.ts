@@ -1,6 +1,23 @@
-export type Yield = 'Food' | 'Production' | 'Gold' | 'Science' | 'Faith' | 'Culture';
+type Yield = 'Food' | 'Production' | 'Gold' | 'Science' | 'Faith' | 'Culture';
+type Era = 'Ancient Era' | 'Classical Era' | 'Medieval Era' | 'Renaissance Era' | 'Industrial Era' | 'Modern Era' | 'Atomic Era' | 'Information Era' | 'Future Era';
+type Class =
+	| 'Recon'
+	| 'Melee'
+	| 'Anti-Cavalry'
+	| 'Ranged'
+	| 'Siege'
+	| 'Light Cavalry'
+	| 'Heavy Cavalry'
+	| 'Naval Melee'
+	| 'Naval Ranged'
+	| 'Naval Raider'
+	| 'Naval Carrier'
+	| 'Air Fighter'
+	| 'Air Bomber'
+	| 'GDR';
+type ViewMode = 'table' | 'list';
 
-export interface Leader {
+interface Leader {
 	id: string;
 	name: string;
 	portrait: string;
@@ -8,19 +25,28 @@ export interface Leader {
 	ability: string;
 }
 
-export interface Unit {
+interface Unit {
 	id: string;
 	name: string;
 	strength: number;
+	rangedStrength: number | null;
 	movement: number;
+	range: number;
+	bombardStrength: number | null;
+	era: Era;
+	unitClass: Class;
+	media: {
+		portrait: string;
+		icon: string;
+	};
 }
 
-export interface UniqueUnit extends Unit {
+interface UniqueUnit extends Unit {
 	special: string[];
 	replaces: string | null;
 }
 
-export interface District {
+interface District {
 	id: string;
 	name: string;
 	yield: Yield;
@@ -28,40 +54,40 @@ export interface District {
 	special: string[];
 }
 
-export interface UniqueDistrict extends District {
+interface UniqueDistrict extends District {
 	replaces: string;
 }
 
-export interface Building {
+interface Building {
 	id: string;
 	name: string;
 	yield: Partial<Record<Yield, { default: number; powered?: number }>>;
 	district: string;
 }
 
-export interface UniqueBuilding extends Building {
+interface UniqueBuilding extends Building {
 	replaces: string | null;
 	special: string[];
 }
 
-export interface Improvement {
+interface Improvement {
 	id: string;
 	name: string;
 	yields: Record<Yield, number>;
 	restrictions: string[];
 }
 
-export interface UniqueImprovement extends Improvement {
+interface UniqueImprovement extends Improvement {
 	special: string[];
 }
 
-export interface Civ {
+interface Civ {
 	name: string;
 	icon: string;
 	leader: Leader;
 	abilityName: string;
 	ability: string;
-	units: UniqueUnit[];
+	units: string[];
 	building?: UniqueBuilding;
 	district?: UniqueDistrict;
 	improvement?: UniqueImprovement;

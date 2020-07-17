@@ -13,7 +13,7 @@ const fetcher: fetcherFn<Civ> = async (url) => {
 	return (await axios.get<Civ>(url)).data;
 };
 
-type IndexInitialProps = SuccessInitialProps | ErroredInitialProps;
+type CivInitialProps = SuccessInitialProps | ErroredInitialProps;
 
 interface SuccessInitialProps {
 	initialCiv: Civ;
@@ -25,7 +25,7 @@ interface ErroredInitialProps {
 	error: true;
 }
 
-const Index: NextPage<IndexInitialProps> = ({ initialCiv, error }) => {
+const CivPage: NextPage<CivInitialProps> = ({ initialCiv, error }) => {
 	const router = useRouter();
 	const { data: civ, error: civError } = useSWR(`/api/civs/${router.query.civ}`, fetcher, {
 		initialData: initialCiv,
@@ -56,7 +56,7 @@ const Index: NextPage<IndexInitialProps> = ({ initialCiv, error }) => {
 									<ul className={styles.units}>
 										{civ.units.map((unit, i) => (
 											<li className={styles.unit} key={i}>
-												<a href={`/unique-units/${unit.name}`}>{unit.name}</a>
+												<a href={`/unique-units/${unit}`}>{unit}</a>
 											</li>
 										))}
 									</ul>
@@ -82,7 +82,7 @@ const Index: NextPage<IndexInitialProps> = ({ initialCiv, error }) => {
 	);
 };
 
-export const getServerSideProps: GetServerSideProps<IndexInitialProps> = async ({ params, res }) => {
+export const getServerSideProps: GetServerSideProps<CivInitialProps> = async ({ params, res }) => {
 	const mongoClient = await MongoClient.connect(process.env.MONGODB_URL!, { useUnifiedTopology: true });
 
 	const queryCiv = params!.civ as string;
@@ -117,4 +117,4 @@ export const getServerSideProps: GetServerSideProps<IndexInitialProps> = async (
 	};
 };
 
-export default Index;
+export default CivPage;

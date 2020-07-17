@@ -1,25 +1,24 @@
 import { MongoClient } from 'mongodb';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Civ } from '/types';
 
 export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
 	const mongoClient = await MongoClient.connect(process.env.MONGODB_URL!, { useUnifiedTopology: true });
 
 	try {
-		const queryCiv = req.query.civ as string;
+		const queryUnit = req.query.unit as string;
 
-		const foundCiv = (
+		const foundUnit = (
 			await mongoClient
 				.db('civ-db')
-				.collection<Civ>('civs')
+				.collection<Unit>('units')
 				.find({}, { projection: { _id: false } })
 				.toArray()
-		).find((civ) => civ.name === queryCiv || civ.name.includes(queryCiv));
+		).find((unit) => unit.name === queryUnit || unit.name.includes(queryUnit));
 
-		if (foundCiv) {
-			res.status(200).json(foundCiv);
+		if (foundUnit) {
+			res.status(200).json(foundUnit);
 		} else {
-			res.status(404).send('No Civ Found');
+			res.status(404).send('No Unit Found');
 		}
 	} catch (err) {
 		console.log(err);

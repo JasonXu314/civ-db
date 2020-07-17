@@ -1,0 +1,31 @@
+.main {
+	.row {
+		display: flex;
+		flex-direction: row;
+
+		.button {
+			padding: 0 0.5em;
+			margin: 0.5em;
+		}
+	}
+
+	.table {
+		border: 1px solid black;
+		border-collapse: collapse;
+
+		thead,
+		tbody {
+			tr {
+				border: 1px solid black;
+				border-collapse: collapse;
+
+				th,
+				td {
+					border: 1px solid black;
+					border-collapse: collapse;
+					padding: 0.5em 1em;
+				}
+			}
+		}
+	}
+}
