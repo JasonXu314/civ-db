@@ -10,7 +10,7 @@ export const eras: Era[] = [
 	'Future Era'
 ];
 
-export const classes: Class[] = [
+export const unitClasses: UnitClass[] = [
 	'Recon',
 	'Melee',
 	'Anti-Cavalry',

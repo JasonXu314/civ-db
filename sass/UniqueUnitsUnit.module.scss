@@ -5,19 +5,36 @@
 		.row {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
+			width: calc(400px + 3em);
+			margin: 1em;
+			border-radius: 8px;
+			padding: 1em;
+			border: 1px solid black;
+			gap: 1em;
+			background: #cccccc;
 
 			img {
-				max-width: 400px;
-				max-height: 400px;
+				max-width: 200px;
+				max-height: 200px;
 				margin: auto;
 				border-radius: 50%;
+				background: white;
 			}
 		}
 
 		.stats {
+			margin: 1em;
+			border-radius: 8px;
+			padding: 1em;
+			border: 1px solid black;
+
 			h4 {
 				display: inline-block;
 				padding-right: 0.5ch;
+			}
+
+			img {
+				vertical-align: bottom;
 			}
 		}
 

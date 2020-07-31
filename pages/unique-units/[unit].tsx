@@ -1,9 +1,12 @@
 import Layout from '$/Layout/Layout';
+import ResourceIcon from '$/ResourceIcon/ResourceIcon';
+import YieldIcon from '$/YieldIcon/YieldIcon';
 import styles from '&/UniqueUnitsUnit.module.scss';
 import axios from 'axios';
 import { MongoClient, WithId } from 'mongodb';
 import { GetServerSideProps, NextPage } from 'next';
 import DefaultErrorPage from 'next/error';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { fetcherFn } from 'swr/dist/types';
@@ -49,6 +52,7 @@ const UniqueUnitPage: NextPage<UnitInitialProps> = ({ initialUnit, error }) => {
 									<img src={unit.media.icon} />
 								</div>
 								<div className={styles.stats}>
+									<h2>Stats</h2>
 									<div>
 										<h4>Strength:</h4>
 										{unit.strength}
@@ -65,8 +69,10 @@ const UniqueUnitPage: NextPage<UnitInitialProps> = ({ initialUnit, error }) => {
 											{unit.bombardStrength}
 										</div>
 									)}
-									<h4>Movement:</h4>
-									{unit.movement}
+									<div>
+										<h4>Movement:</h4>
+										{unit.movement}
+									</div>
 									{unit.range && (
 										<div>
 											<h4>Range:</h4>
@@ -78,21 +84,29 @@ const UniqueUnitPage: NextPage<UnitInitialProps> = ({ initialUnit, error }) => {
 										{unit.era}
 									</div>
 									<div>
-										<h4>Abilities:</h4>
+										<h4>Production Cost:</h4>
+										{unit.productionCost} <YieldIcon type="production" />
+										{unit.productionResourceCost && ', '}
+										{unit.productionResourceCost?.cost}{' '}
+										{unit.maintainanceResourceCost && <ResourceIcon type={unit.maintainanceResourceCost.type} />}
 									</div>
 									<div>
-										<ul className={styles.abilities}>
-											{unit.special.map((special, i) => (
-												<li key={i}>{special}</li>
-											))}
-										</ul>
+										<h4>Purchase Cost:</h4>
+										{unit.purchaseCost} <YieldIcon type="gold" />
 									</div>
-									{unit.replaces && (
-										<div>
-											<h4>Replaces:</h4>
-											<a href={`/units/${unit.replaces}`}>{unit.replaces}</a>
-										</div>
-									)}
+									<div>
+										<h4>Maintainance Cost:</h4>
+										{unit.maintainanceCost} <YieldIcon type="gold" />
+										{unit.maintainanceResourceCost && ', '}
+										{unit.maintainanceResourceCost?.cost}{' '}
+										{unit.maintainanceResourceCost && <ResourceIcon type={unit.maintainanceResourceCost.type} />}
+									</div>
+									<div>
+										<h4>Replaces:</h4>
+										<Link href="/units/[unit]" as={`/units/${unit.replaces}`}>
+											<a>{unit.replaces}</a>
+										</Link>
+									</div>
 								</div>
 							</div>
 						);
@@ -102,6 +116,9 @@ const UniqueUnitPage: NextPage<UnitInitialProps> = ({ initialUnit, error }) => {
 						return <div className={styles.loading}>Loading Unit Data...</div>;
 					}
 				})()}
+				<Link href="/units">
+					<a>Back to Units</a>
+				</Link>
 			</div>
 		</Layout>
 	);

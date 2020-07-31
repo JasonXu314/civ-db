@@ -41,13 +41,13 @@ const Index: NextPage = () => {
 							</thead>
 							<tbody>
 								{units &&
-									Object.entries(createUnitsTable(units)).map(([unitClass, classUnits]) => (
+									Object.entries(createUnitsTable(units)).map(([unitClass, units]) => (
 										<tr key={unitClass}>
 											<td>{unitClass}</td>
-											{classUnits.map((classUnit, i) =>
-												classUnit ? (
-													<td key={classUnit.id}>
-														<a href={`/units/${classUnit.name}`}>{classUnit.name}</a>
+											{units.map((unit, i) =>
+												unit ? (
+													<td key={unit._id}>
+														<a href={`/units/${unit.name}`}>{unit.name}</a>
 													</td>
 												) : (
 													<td key={i}></td>
@@ -63,7 +63,7 @@ const Index: NextPage = () => {
 				) : (
 					<>
 						<ul className={styles.list}>
-							{units && units.sort((u1, u2) => u1.name.localeCompare(u2.name)).map((unit) => <li key={unit.id}>{unit.name}</li>)}
+							{units && units.sort((u1, u2) => u1.name.localeCompare(u2.name)).map((unit) => <li key={unit._id}>{unit.name}</li>)}
 						</ul>
 						{err && <div>{err}</div>}
 						{!units && !err && <div>Loading Units...</div>}

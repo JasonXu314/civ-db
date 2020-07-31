@@ -1,6 +1,18 @@
 type Yield = 'Food' | 'Production' | 'Gold' | 'Science' | 'Faith' | 'Culture';
-type Era = 'Ancient Era' | 'Classical Era' | 'Medieval Era' | 'Renaissance Era' | 'Industrial Era' | 'Modern Era' | 'Atomic Era' | 'Information Era' | 'Future Era';
-type Class =
+type YieldIconType = 'food' | 'production' | 'gold' | 'science' | 'faith' | 'culture';
+type StrategicResource = 'Horses' | 'Iron' | 'Niter' | 'Coal' | 'Oil' | 'Aluminum' | 'Uranium';
+type ResourceIconType = 'horses' | 'iron' | 'niter' | 'coal' | 'oil' | 'aluminum';
+type Era =
+	| 'Ancient Era'
+	| 'Classical Era'
+	| 'Medieval Era'
+	| 'Renaissance Era'
+	| 'Industrial Era'
+	| 'Modern Era'
+	| 'Atomic Era'
+	| 'Information Era'
+	| 'Future Era';
+type UnitClass =
 	| 'Recon'
 	| 'Melee'
 	| 'Anti-Cavalry'
@@ -18,7 +30,7 @@ type Class =
 type ViewMode = 'table' | 'list';
 
 interface Leader {
-	id: string;
+	_id: string;
 	name: string;
 	portrait: string;
 	abilityName: string;
@@ -26,7 +38,7 @@ interface Leader {
 }
 
 interface Unit {
-	id: string;
+	_id: string;
 	name: string;
 	strength: number;
 	rangedStrength: number | null;
@@ -34,7 +46,18 @@ interface Unit {
 	range: number;
 	bombardStrength: number | null;
 	era: Era;
-	unitClass: Class;
+	unitClass: UnitClass;
+	productionCost: number;
+	purchaseCost: number;
+	maintainanceCost: number;
+	productionResourceCost: {
+		type: ResourceIconType;
+		cost: number;
+	} | null;
+	maintainanceResourceCost: {
+		type: ResourceIconType;
+		cost: number;
+	} | null;
 	media: {
 		portrait: string;
 		icon: string;
@@ -82,6 +105,7 @@ interface UniqueImprovement extends Improvement {
 }
 
 interface Civ {
+	_id: string;
 	name: string;
 	icon: string;
 	leader: Leader;
@@ -91,5 +115,4 @@ interface Civ {
 	building?: UniqueBuilding;
 	district?: UniqueDistrict;
 	improvement?: UniqueImprovement;
-	id: string;
 }

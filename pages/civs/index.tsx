@@ -4,7 +4,6 @@ import styles from '&/CivsIndex.module.scss';
 import axios from 'axios';
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { Civ } from '/types';
 
 const CivsIndex: NextPage = () => {
 	const [civs, setCivs] = useState<Civ[] | null>(null);

@@ -7,13 +7,9 @@ export default async (req: NextApiRequest, res: NextApiResponse): Promise<void> 
 	try {
 		const queryUnit = req.query.unit as string;
 
-		const foundUnit = (
-			await mongoClient
-				.db('civ-db')
-				.collection<Unit>('units')
-				.find({}, { projection: { _id: false } })
-				.toArray()
-		).find((unit) => unit.name === queryUnit || unit.name.includes(queryUnit));
+		const foundUnit = (await mongoClient.db('civ-db').collection<Unit>('units').find().toArray()).find(
+			(unit) => unit.name.toLowerCase() === queryUnit.toLowerCase() || unit.name.toLowerCase().includes(queryUnit.toLowerCase())
+		);
 
 		if (foundUnit) {
 			res.status(200).json(foundUnit);

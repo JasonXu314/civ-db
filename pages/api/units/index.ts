@@ -1,6 +1,5 @@
 import { MongoClient } from 'mongodb';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { Unit } from '/types';
 
 export default async (req: NextApiRequest, res: NextApiResponse<Unit[]>): Promise<void> => {
 	const mongoClient = await MongoClient.connect(process.env.MONGODB_URL!, { useUnifiedTopology: true });
@@ -10,33 +9,19 @@ export default async (req: NextApiRequest, res: NextApiResponse<Unit[]>): Promis
 		if (queryUnit && queryUnit !== '') {
 			if (Array.isArray(queryUnit)) {
 				res.status(200).json(
-					(
-						await mongoClient
-							.db('civ-db')
-							.collection<Unit>('units')
-							.find({}, { projection: { _id: false } })
-							.toArray()
-					).filter((unit) => queryUnit.includes(unit.name) || queryUnit.some((qc) => unit.name.includes(qc)))
+					(await mongoClient.db('civ-db').collection<Unit>('units').find().toArray()).filter(
+						(unit) => queryUnit.includes(unit.name) || queryUnit.some((qc) => unit.name.toLowerCase().includes(qc.toLowerCase()))
+					)
 				);
 			} else {
 				res.status(200).json(
-					(
-						await mongoClient
-							.db('civ-db')
-							.collection<Unit>('units')
-							.find({}, { projection: { _id: false } })
-							.toArray()
-					).filter((unit) => unit.name === queryUnit || unit.name.includes(queryUnit))
+					(await mongoClient.db('civ-db').collection<Unit>('units').find().toArray()).filter(
+						(unit) => unit.name.toLowerCase() === queryUnit.toLowerCase() || unit.name.toLowerCase().includes(queryUnit.toLowerCase())
+					)
 				);
 			}
 		} else {
-			res.status(200).json(
-				await mongoClient
-					.db('civ-db')
-					.collection<Unit>('units')
-					.find({}, { projection: { _id: false } })
-					.toArray()
-			);
+			res.status(200).json(await mongoClient.db('civ-db').collection<Unit>('units').find().toArray());
 		}
 	} catch (err) {
 		console.log(err);

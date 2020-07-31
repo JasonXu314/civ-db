@@ -7,7 +7,6 @@ import DefaultErrorPage from 'next/error';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { fetcherFn } from 'swr/dist/types';
-import { Civ } from '/types';
 
 const fetcher: fetcherFn<Civ> = async (url) => {
 	return (await axios.get<Civ>(url)).data;

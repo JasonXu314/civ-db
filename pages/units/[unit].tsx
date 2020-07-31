@@ -1,9 +1,11 @@
 import Layout from '$/Layout/Layout';
-import styles from '&/UniqueUnitsUnit.module.scss';
+import UnitDisplay from '$/UnitDisplay/UnitDisplay';
+import styles from '&/UnitsUnit.module.scss';
 import axios from 'axios';
 import { MongoClient, WithId } from 'mongodb';
 import { GetServerSideProps, NextPage } from 'next';
 import DefaultErrorPage from 'next/error';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import useSWR from 'swr';
 import { fetcherFn } from 'swr/dist/types';
@@ -39,49 +41,16 @@ const UnitPage: NextPage<UnitInitialProps> = ({ initialUnit, error }) => {
 	return (
 		<Layout title={`Civ DB | ${router.query.unit}`}>
 			<div className={styles.main}>
-				{(() => {
-					if (unit) {
-						return (
-							<div className={styles.unit}>
-								<h1 className={styles.name}>{unit.name}</h1>
-								<div className={styles.row}>
-									<img src={unit.media.portrait} />
-									<img src={unit.media.icon} />
-								</div>
-								<div className={styles.stats}>
-									<div>
-										<h4>Strength:</h4>
-										{unit.strength}
-									</div>
-									{unit.rangedStrength && (
-										<div>
-											<h4>Ranged Strength: </h4> {unit.rangedStrength}
-										</div>
-									)}
-									{unit.bombardStrength && (
-										<div>
-											<h4>Bombard Strength: </h4> {unit.bombardStrength}
-										</div>
-									)}
-									<h4>Movement: </h4> {unit.movement}
-									{unit.range && (
-										<div>
-											<h4>Range: </h4> {unit.range}
-										</div>
-									)}
-									<div>
-										<h4>Era:</h4>
-										{unit.era}
-									</div>
-								</div>
-							</div>
-						);
-					} else if (unitError) {
-						return <div className={styles.error}>Error Loading Unit Data...</div>;
-					} else {
-						return <div className={styles.loading}>Loading Unit Data...</div>;
-					}
-				})()}
+				{unit ? (
+					<UnitDisplay unit={unit} />
+				) : unitError ? (
+					<div className={styles.error}>Error Loading Unit Data...</div>
+				) : (
+					<div className={styles.loading}>Loading Unit Data...</div>
+				)}
+				<Link href="/units">
+					<a>Back to Units</a>
+				</Link>
 			</div>
 		</Layout>
 	);

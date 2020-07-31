@@ -34,7 +34,7 @@ describe('Civs Index  Page', () => {
 		expect(link).not.toBeNull();
 		expect(text).not.toBeNull();
 
-		expect(link).toHaveAttribute('href', '/civs/America (Teddy)');
+		expect(link).toHaveAttribute('href', encodeURI('/civs/America (Teddy)'));
 		expect(link).toContainElement(text);
 		expect(text).toHaveTextContent('America (Teddy)');
 	});

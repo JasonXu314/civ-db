@@ -1,6 +1,5 @@
 import { MongoClient } from 'mongodb';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { UniqueUnit, Unit } from '/types';
 
 export default async (req: NextApiRequest, res: NextApiResponse<Unit[]>): Promise<void> => {
 	const mongoClient = await MongoClient.connect(process.env.MONGODB_URL!, { useUnifiedTopology: true });
@@ -10,33 +9,19 @@ export default async (req: NextApiRequest, res: NextApiResponse<Unit[]>): Promis
 		if (queryUnit && queryUnit !== '') {
 			if (Array.isArray(queryUnit)) {
 				res.status(200).json(
-					(
-						await mongoClient
-							.db('civ-db')
-							.collection<UniqueUnit>('unique-units')
-							.find({}, { projection: { _id: false } })
-							.toArray()
-					).filter((unit) => queryUnit.includes(unit.name) || queryUnit.some((qc) => unit.name.includes(qc)))
+					(await mongoClient.db('civ-db').collection<UniqueUnit>('unique-units').find().toArray()).filter(
+						(unit) => queryUnit.includes(unit.name) || queryUnit.some((qc) => unit.name.includes(qc))
+					)
 				);
 			} else {
 				res.status(200).json(
-					(
-						await mongoClient
-							.db('civ-db')
-							.collection<UniqueUnit>('unique-units')
-							.find({}, { projection: { _id: false } })
-							.toArray()
-					).filter((unit) => unit.name === queryUnit || unit.name.includes(queryUnit))
+					(await mongoClient.db('civ-db').collection<UniqueUnit>('unique-units').find().toArray()).filter(
+						(unit) => unit.name === queryUnit || unit.name.includes(queryUnit)
+					)
 				);
 			}
 		} else {
-			res.status(200).json(
-				await mongoClient
-					.db('civ-db')
-					.collection<UniqueUnit>('unique-units')
-					.find({}, { projection: { _id: false } })
-					.toArray()
-			);
+			res.status(200).json(await mongoClient.db('civ-db').collection<UniqueUnit>('unique-units').find().toArray());
 		}
 	} catch (err) {
 		console.log(err);
